@@ -1,0 +1,140 @@
+@import url("./styles/nav.css");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: rgb(20, 11, 16);
+}
+
+.hero {
+  padding: 7rem 0;
+  width: 100%;
+}
+
+.deliver-detail {
+  background: #ff264c;
+  max-width: fit-content;
+  border-radius: 22px;
+}
+
+.hero-text {
+  line-break: auto;
+  line-height: 2;
+}
+
+.important-hero {
+  color: #ff264c;
+}
+
+.card-hero {
+  max-width: 30%;
+  height: 30%;
+  align-items: center;
+  justify-content: center;
+  background: #faf8fae6;
+  border-radius: 21px;
+  position: absolute;
+  transition: 5s;
+}
+
+.hero-btn {
+  width: 60%;
+  padding: 10px;
+  outline: none;
+  border: none;
+  background: #ff264c;
+  transition: 0.5s;
+}
+.hero-btn:hover {
+  scale: 0.9;
+}
+
+.image-upload {
+  height: 10rem;
+}
+
+.icon-form {
+  position: absolute;
+  top: 45%;
+  left: 86%;
+  font-size: 26px;
+}
+
+.upload-image {
+  height: 10rem;
+  top: 19%;
+  left: 33%;
+}
+
+/* ALERT */
+
+.alert {
+  height: 6rem;
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+}
+
+/* slider */
+
+.slick-next:before,
+.slick-prev:before {
+  font-size: 37px;
+  z-index: 5;
+  color: #ff264c;
+}
+
+.slick-prev {
+  left: -21px;
+  z-index: 10;
+}
+
+.slick-next {
+  right: -2px;
+}
+
+.heading {
+  padding-bottom: 2rem;
+  padding-left: 1rem;
+  color: azure;
+  position: relative;
+  line-height: 1.5rem !important;
+}
+
+.heading::before {
+  position: absolute;
+  left: 1rem;
+  top: 80%;
+  height: 0;
+  width: 20%;
+  content: "";
+  border-top: 5px solid #ff264c;
+}
+
+.img-food:hover {
+  scale: 0.9;
+}
+
+.menu-cards:hover {
+  background-color: #ff264c;
+}
+
+/* MENU CARDS NACKGROUND */
+.clicked {
+  background: #ff264c;
+}
+
+@media screen and (max-width: 991px) {
+  .hero-hook {
+    margin-top: 40px;
+  }
+  .upload-image {
+    height: 10rem;
+    top: 23%;
+    left: 23%;
+  }
+}
