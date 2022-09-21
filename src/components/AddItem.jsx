@@ -195,7 +195,7 @@ const AddItem = () => {
           <div className="form-group col-md-8" style={{ position: "relative" }}>
             <div
               className="input-group mb-3 px-2  bg-white shadow-sm"
-              style={{ paddingBottom: "10rem"  ,overflow:"hidden"}}
+              style={{ paddingBottom: "10rem", overflow: "hidden" }}
             >
               <input
                 name="imageFile"
@@ -289,7 +289,7 @@ const AddItem = () => {
             className="btn position-absolute "
             style={{ right: "17%", background: "#ff264c", width: "10rem" }}
           >
-            Sign in
+            Add item
           </button>
         </div>
       </form>

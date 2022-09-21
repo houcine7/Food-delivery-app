@@ -23,7 +23,7 @@ var settings = {
     },
   ],
 };
-const Card = ({ name, image, calories, price }) => {
+export const Card = ({ name, image, calories, price }) => {
   return (
     <div
       className="card p-3"
@@ -46,7 +46,7 @@ const Card = ({ name, image, calories, price }) => {
           <img
             className="img-food"
             src={image}
-            style={{ height: "200px", transition: "0.5s" }}
+            style={{ height: "200px", transition: "0.5" }}
             loading="lazy"
           />
         </div>
@@ -65,13 +65,14 @@ const Cards = () => {
     <div className="container">
       <h1 className="heading title">Fresh and healthy Fruits </h1>
       <Slider {...settings}>
-        {foodItems.map((food) => {
+        {foodItems.map((food, index) => {
           return (
             <Card
               name={food.name}
               image={food.imageFile}
               calories={food.calories}
               price={food.price}
+              key={index}
             />
           );
         })}

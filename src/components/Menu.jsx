@@ -2,32 +2,93 @@ import React, { useState, useEffect } from "react";
 
 import { useStateValue } from "../context/StateProvider";
 import { motion } from "framer-motion";
+
+// cards imports
+import Slider from "react-slick";
+import { Card } from "./card";
+
+// cts
 const categories = ["Fruits", "Drinks", "Rice&chiken", "Fish", "Icecream"];
 
+// slider configs
+var initSettings = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 570,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
+};
 const Menu = () => {
-  const [categorie, setCategorie] = useState("");
+  //
+  const [categorie, setCategorie] = useState("no categorie");
+  const [itemsSelected, setItemsSelected] = useState([]);
+
   const [{ foodItems }, dispatch] = useStateValue();
-  console.log(foodItems);
-  console.log(categorie);
+  const [sliderSittings, setSliderSittings] = useState(initSettings);
 
   // filter items by categories
   useEffect(() => {
     const cotegorieItems = foodItems.filter((item) => {
       return item.categorie === categorie;
     });
-    console.log(cotegorieItems);
+    setItemsSelected(cotegorieItems);
+    const len = cotegorieItems.length;
+    if (len >= 3) {
+      setSliderSittings((prevSettings) => {
+        return {
+          ...prevSettings,
+          slidesToShow: 3,
+        };
+      });
+    } else {
+      setSliderSittings((prevSettings) => {
+        return { ...prevSettings, slidesToShow: len };
+      });
+    }
   }, [categorie]);
 
   return (
     <section className="container">
       <h1 className="heading title">Chose a categorie </h1>
       <div
-        className=" d-flex justify-content-center align-items-center "
-        style={{ gap: "1rem", overflow: "auto", padding: "0 2rem" }}
+        className="d-flex  align-items-center align-content-center"
+        style={{ gap: "1rem", padding: "0 2rem", overflow: "auto" }}
       >
-        {categories.map((categ) => {
-          return <CardMenu name={categ} setCategorie={setCategorie} />;
+        {categories.map((categ, index) => {
+          return (
+            <CardMenu key={index} name={categ} setCategorie={setCategorie} />
+          );
         })}
+      </div>
+      <div className="pt-5 pb-5">
+        <Slider {...sliderSittings}>
+          {itemsSelected.map((item, index) => {
+            return (
+              <>
+                <Card
+                  key={index}
+                  name={item.name}
+                  image={item.imageFile}
+                  calories={item.calories}
+                  price={item.price}
+                />
+              </>
+            );
+          })}
+        </Slider>
       </div>
     </section>
   );
@@ -70,10 +131,9 @@ const CardMenu = ({ name, setCategorie }) => {
       id = "icecream";
       break;
     case "Fish":
-      id = "fish";
+      id = "Fish";
       break;
   }
-  console.log(id);
   return (
     <motion.div whileTap={{ scale: "0.9" }}>
       <div
@@ -89,7 +149,7 @@ const CardMenu = ({ name, setCategorie }) => {
         id={id}
       >
         <i
-          class="bi bi-cup-straw mt-4"
+          className="bi bi-cup-straw mt-4"
           style={{
             fontSize: "50px",
             borderRadius: "50%",
