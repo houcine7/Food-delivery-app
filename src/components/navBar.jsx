@@ -131,7 +131,7 @@ const NavBar = () => {
               />
             ) : (
               <i
-                className="bi bi-person-circle dropdown-toggle"
+                className="bi bi-person-circle img-profile dropdown-toggle"
                 data-toggle="dropdown"
               ></i>
             )}

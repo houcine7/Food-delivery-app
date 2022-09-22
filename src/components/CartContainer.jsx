@@ -3,9 +3,19 @@ import React, { useState } from "react";
 import { useStateValue } from "../context/StateProvider";
 
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const CartContainer = () => {
   const [{ user, cartItems }, dispatch] = useStateValue();
+  const [subTot, setSubTotal] = useState(0);
+
+  useEffect(() => {
+    let ttl = 0;
+    cartItems.map((item) => {
+      ttl += parseInt(item.price);
+    });
+    setSubTotal(ttl);
+  }, [cartItems]);
   const hideCart = () => {
     dispatch({
       type: "SET_SHOW_CART",
@@ -37,6 +47,13 @@ const CartContainer = () => {
               color: "white",
               fontWeight: "700",
             }}
+            onClick={() => {
+              localStorage.clear();
+              dispatch({
+                type: "SET_CART_ITEMS",
+                cartItems: [],
+              });
+            }}
           >
             clear
           </button>
@@ -52,6 +69,7 @@ const CartContainer = () => {
                     name={item.name}
                     price={item.price}
                     image={item.image}
+                    handelQty={setSubTotal}
                   />
                 );
               })}
@@ -61,17 +79,17 @@ const CartContainer = () => {
               <div className="container pt-5 ">
                 <div className="d-flex justify-content-between pb-5">
                   <strong className="text-muted">Total Cart</strong>
-                  <strong className="text-light">{8 + "$"}</strong>
+                  <strong className="text-light">{subTot + " $"}</strong>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <strong className="text-muted">Total Cart</strong>
-                  <strong className="text-light">{8 + "$"}</strong>
+                  <strong className="text-muted">Delivery </strong>
+                  <strong className="text-light">{3.5 + " $"}</strong>
                 </div>
 
                 <div className="text-center mt-5 pt-3 border1">
                   <div className="d-flex justify-content-between">
                     <strong className="text-light">Total</strong>
-                    <strong className="text-light">55$</strong>
+                    <strong className="text-light">{subTot + 3.5} $</strong>
                   </div>
                 </div>
 
@@ -99,7 +117,7 @@ const CartContainer = () => {
   );
 };
 
-const Item = ({ image, name, price }) => {
+const Item = ({ image, name, price, handelQty }) => {
   const [quantity, setQuantity] = useState(1);
   return (
     <div className=" cart-item d-flex justify-content-between align-items-center">
@@ -120,13 +138,21 @@ const Item = ({ image, name, price }) => {
         <i
           className="bi bi-plus-circle-fill"
           style={{ fontSize: "20px", cursor: "pointer" }}
-          onClick={() => setQuantity((preQty) => preQty + 1)}
+          onClick={() => {
+            setQuantity((preQty) => preQty + 1);
+            handelQty((prePricing) => prePricing + parseInt(price));
+          }}
         ></i>
         <strong className="pl-2 pr-2">{quantity}</strong>
         <i
           className="bi bi-dash-circle-fill"
           style={{ fontSize: "20px", cursor: "pointer" }}
-          onClick={() => setQuantity((preQty) => preQty - 1)}
+          onClick={() => {
+            if (quantity >= 1) {
+              setQuantity((preQty) => preQty - 1);
+              handelQty((prePricing) => prePricing - parseInt(price));
+            }
+          }}
         ></i>
       </div>
     </div>
