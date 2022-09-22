@@ -51,7 +51,7 @@ export const Card = ({ name, image, calories, price }) => {
           />
         </div>
       </div>
-      <p>A great option weather you are at office or at home. </p>
+      <p>A great option where ever you are. </p>
 
       <button className="btn btn-danger">Add to cart</button>
     </div>
@@ -63,18 +63,26 @@ const Cards = () => {
 
   return (
     <div className="container">
-      <h1 className="heading title">Fresh and healthy Fruits </h1>
+      <h1 className="heading title">Most ordred Food</h1>
       <Slider {...settings}>
         {foodItems.map((food, index) => {
-          return (
-            <Card
-              name={food.name}
-              image={food.imageFile}
-              calories={food.calories}
-              price={food.price}
-              key={index}
-            />
-          );
+          if (
+            food.name === "coca" ||
+            food.name === "watermelon" ||
+            food.name === "Sardine" ||
+            food.name === "grape" ||
+            food.name === "kentaki"
+          ) {
+            return (
+              <Card
+                name={food.name}
+                image={food.imageFile}
+                calories={food.calories}
+                price={food.price}
+                key={food.id}
+              />
+            );
+          }
         })}
       </Slider>
     </div>

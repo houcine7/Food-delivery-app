@@ -82,7 +82,7 @@ const NavBar = () => {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav ">
           <li className="nav-item active ">
-            <a className=" nav-link   homelink " href="/">
+            <a className=" nav-link  homelink projectslink" href="/">
               Home
             </a>
           </li>
@@ -94,19 +94,23 @@ const NavBar = () => {
             </div>
           </li>
           <li className="nav-item ">
-            <a className=" nav-link  crlink" href="#">
+            <a className=" nav-link  crlink projectslink" href="#">
               Menu
             </a>
           </li>
           <li className="nav-item ">
-            <a className=" nav-link eclink" href="/Education">
+            <a className=" nav-link eclink projectslink" href="/Education">
               Services
             </a>
           </li>
           <div
             className="nav-item "
             onClick={handelClick}
-            style={{ position: "relative" }}
+            style={{
+              position: "relative",
+              textAlign: "center",
+              alignSelf: "center",
+            }}
           >
             {user ? (
               <img
@@ -143,7 +147,7 @@ const NavBar = () => {
               <></>
             )}
           </div>
-          <div className="container position-relative">
+          <div className="container cart position-relative">
             <div data-badge="3" className="bi bi-bag">
               <span className="cart-count">3</span>
             </div>
