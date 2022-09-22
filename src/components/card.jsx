@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 
 import Slider from "react-slick";
 import { useStateValue } from "../context/StateProvider";
@@ -23,7 +24,13 @@ var settings = {
     },
   ],
 };
-export const Card = ({ name, image, calories, price }) => {
+export const Card = ({ name, image, calories, price, handelClick }) => {
+  const item = {
+    name: name,
+    calories: calories,
+    price: price,
+    image: image,
+  };
   return (
     <div
       className="card p-3"
@@ -53,13 +60,25 @@ export const Card = ({ name, image, calories, price }) => {
       </div>
       <p>A great option where ever you are. </p>
 
-      <button className="btn btn-danger">Add to cart</button>
+      <button className="btn btn-danger" onClick={() => handelClick(item)}>
+        Add to cart
+      </button>
     </div>
   );
 };
 
 const Cards = () => {
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [{ foodItems, cartItems }, dispatch] = useStateValue();
+
+  useEffect(() => {}, [cartItems]);
+
+  const updateCart = (item) => {
+    dispatch({
+      type: "SET_CART_ITEMS",
+      cartItems: [...cartItems, item],
+    });
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  };
 
   return (
     <div className="container">
@@ -80,6 +99,7 @@ const Cards = () => {
                 calories={food.calories}
                 price={food.price}
                 key={food.id}
+                handelClick={updateCart}
               />
             );
           }

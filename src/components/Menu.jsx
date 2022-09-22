@@ -33,7 +33,7 @@ var initSettings = {
 const Menu = () => {
   //
   const [categorie, setCategorie] = useState("fruits");
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [{ foodItems, cartItems }, dispatch] = useStateValue();
   const [sliderSittings, setSliderSittings] = useState(initSettings);
   const [itemsSelected, setItemsSelected] = useState([]);
 
@@ -57,7 +57,18 @@ const Menu = () => {
         return { ...prevSettings, slidesToShow: len };
       });
     }
-  }, [categorie, foodItems]);
+    console.log(cartItems);
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [categorie, foodItems, cartItems]);
+
+  // ad to cart function
+
+  const addToCart = (item) => {
+    dispatch({
+      type: "SET_CART_ITEMS",
+      cartItems: [...cartItems, item],
+    });
+  };
 
   return (
     <section className="container">
@@ -90,6 +101,7 @@ const Menu = () => {
                   image={item.imageFile}
                   calories={item.calories}
                   price={item.price}
+                  handelClick={addToCart}
                 />
               </>
             );

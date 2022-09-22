@@ -19,7 +19,7 @@ const NavBar = () => {
   const providerAuth = new GoogleAuthProvider();
 
   // context
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
   //
   const handelClick = async () => {
     console.log("clicked");
@@ -41,6 +41,16 @@ const NavBar = () => {
     }
   };
 
+  // toggel cart
+
+  const toggelCart = () => {
+    dispatch({
+      type: "SET_SHOW_CART",
+      cartShow: !cartShow,
+    });
+  };
+
+  //
   function logoutFunction() {
     localStorage.clear();
     dispatch({
@@ -147,9 +157,14 @@ const NavBar = () => {
               <></>
             )}
           </div>
-          <div className="container cart position-relative">
+          <div
+            className="container cart position-relative"
+            onClick={toggelCart}
+          >
             <div data-badge="3" className="bi bi-bag">
-              <span className="cart-count">3</span>
+              {cartItems.length > 0 && (
+                <span className="cart-count"> {cartItems.length}</span>
+              )}
             </div>
           </div>
         </ul>

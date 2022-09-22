@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
-  const [{}, dispatch] = useStateValue();
+  const [{ cartShow }, dispatch] = useStateValue();
   //
   const fetchFoodItems = async () => {
     const foodData = await getItems();
@@ -40,7 +40,7 @@ function App() {
           element={
             <>
               <NavBar />
-              <CartContainer />
+              {cartShow && <CartContainer />}
               <Hero />
               <Cards />
               <Menu />
