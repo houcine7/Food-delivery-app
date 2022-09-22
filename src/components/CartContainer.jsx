@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useStateValue } from "../context/StateProvider";
 
 import { motion } from "framer-motion";
 
 const CartContainer = () => {
-  const [{ cartItems }, dispatch] = useStateValue();
+  const [{ user, cartItems }, dispatch] = useStateValue();
   const hideCart = () => {
     dispatch({
       type: "SET_SHOW_CART",
@@ -41,12 +41,11 @@ const CartContainer = () => {
             clear
           </button>
         </div>
-
-        <div className="cart-body d-flex flex-column align-items-center mt-5">
-          <div className="items container">
-            {/* items goes here  */}
-            {cartItems &&
-              cartItems.map((item, index) => {
+        {cartItems.length > 0 ? (
+          <div className="cart-body d-flex flex-column align-items-center mt-5">
+            <div className="items container">
+              {/* items goes here  */}
+              {cartItems.map((item, index) => {
                 return (
                   <Item
                     key={index}
@@ -56,41 +55,52 @@ const CartContainer = () => {
                   />
                 );
               })}
-          </div>
+            </div>
 
-          <div className="payement position-absolute bottom-0">
-            <div className="container pt-5 ">
-              <div className="d-flex justify-content-between pb-5">
-                <strong className="text-muted">Total Cart</strong>
-                <strong className="text-light">{8 + "$"}</strong>
-              </div>
-              <div className="d-flex justify-content-between">
-                <strong className="text-muted">Total Cart</strong>
-                <strong className="text-light">{8 + "$"}</strong>
-              </div>
-
-              <div className="text-center mt-5 pt-3 border1">
-                <div className="d-flex justify-content-between">
-                  <strong className="text-light">Total</strong>
-                  <strong className="text-light">55$</strong>
+            <div className="payement position-absolute bottom-0">
+              <div className="container pt-5 ">
+                <div className="d-flex justify-content-between pb-5">
+                  <strong className="text-muted">Total Cart</strong>
+                  <strong className="text-light">{8 + "$"}</strong>
                 </div>
-              </div>
+                <div className="d-flex justify-content-between">
+                  <strong className="text-muted">Total Cart</strong>
+                  <strong className="text-light">{8 + "$"}</strong>
+                </div>
 
-              <button
-                className="position-absolute btn btn-danger"
-                style={{ bottom: "10px", left: "5px", right: "5px" }}
-              >
-                By Now
-              </button>
+                <div className="text-center mt-5 pt-3 border1">
+                  <div className="d-flex justify-content-between">
+                    <strong className="text-light">Total</strong>
+                    <strong className="text-light">55$</strong>
+                  </div>
+                </div>
+
+                <button
+                  className="position-absolute btn btn-danger"
+                  style={{ bottom: "10px", left: "5px", right: "5px" }}
+                >
+                  {user ? "By Now" : "Login To Complete"}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="cart-body d-flex flex-column align-items-center mt-5">
+            <img
+              className="img-fluid mb-5"
+              alt="emptycart"
+              src="./imgs/addtocart.png"
+            />
+            <strong>your cart is currently empty</strong>
+          </div>
+        )}
       </div>
     </motion.div>
   );
 };
 
 const Item = ({ image, name, price }) => {
+  const [quantity, setQuantity] = useState(1);
   return (
     <div className=" cart-item d-flex justify-content-between align-items-center">
       <div className="d-flex align-items-center">
@@ -110,11 +120,13 @@ const Item = ({ image, name, price }) => {
         <i
           className="bi bi-plus-circle-fill"
           style={{ fontSize: "20px", cursor: "pointer" }}
+          onClick={() => setQuantity((preQty) => preQty + 1)}
         ></i>
-        <strong className="pl-2 pr-2">1</strong>
+        <strong className="pl-2 pr-2">{quantity}</strong>
         <i
           className="bi bi-dash-circle-fill"
           style={{ fontSize: "20px", cursor: "pointer" }}
+          onClick={() => setQuantity((preQty) => preQty - 1)}
         ></i>
       </div>
     </div>

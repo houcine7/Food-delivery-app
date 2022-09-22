@@ -9,6 +9,7 @@ import {
   Menu,
   Footer,
   CartContainer,
+  Loader,
 } from "./components/index";
 import { getItems } from "./fireBaseFunctions";
 //
@@ -17,8 +18,10 @@ import { useEffect } from "react";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
+//
 function App() {
   const [{ cartShow }, dispatch] = useStateValue();
+
   //
   const fetchFoodItems = async () => {
     const foodData = await getItems();
@@ -45,6 +48,7 @@ function App() {
               <Cards />
               <Menu />
               <Footer />
+              <Loader />
             </>
           }
         />
@@ -55,6 +59,7 @@ function App() {
               <NavBar />
               <AddItem />
               <Footer />
+              <Loader />
             </>
           }
         />

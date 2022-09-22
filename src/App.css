@@ -9,6 +9,17 @@ body {
   background-color: rgb(20, 11, 16);
 }
 
+/*LOADER*/
+
+.loader {
+  width: 100%;
+  bottom: 0;
+  top: 0;
+  background: #140b10;
+  z-index: 1000;
+}
+
+/*  */
 .hero {
   padding: 7rem 0;
   width: 100%;
