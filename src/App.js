@@ -2,7 +2,14 @@ import "./App.css";
 
 import Hero from "./components/Hero";
 
-import { NavBar, AddItem, Cards, Menu, Footer } from "./components/index";
+import {
+  NavBar,
+  AddItem,
+  Cards,
+  Menu,
+  Footer,
+  CartContainer,
+} from "./components/index";
 import { getItems } from "./fireBaseFunctions";
 //
 import { useStateValue } from "./context/StateProvider";
@@ -33,6 +40,7 @@ function App() {
           element={
             <>
               <NavBar />
+              <CartContainer />
               <Hero />
               <Cards />
               <Menu />
