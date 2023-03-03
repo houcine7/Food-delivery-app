@@ -142,7 +142,7 @@ const NavBar = () => {
                   style={{ left: "-50px" }}
                 >
                   <h6 className="dropdown-header">Welcome to FOODIFY</h6>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href="/addItem">
                     Add item
                   </a>
                   <button
